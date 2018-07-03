@@ -14,8 +14,12 @@
 
     <label for="author">Auteur du livre</label>
     <select name="author" id="author">
-        @foreach($author as $value)
-    <option value="{{ $value->id }}">{{ $value->name }}</option>   
+        @foreach($authors as $author)
+            @if($book->author_id == $author->id)
+                <option selected value="{{ $author->id }}">{{ $author->name }}</option>  
+            @else 
+                <option value="{{ $author->id }}">{{ $author->name }}</option>  
+            @endif
         @endforeach   
     </select>
 

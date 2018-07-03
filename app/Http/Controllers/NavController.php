@@ -23,9 +23,9 @@ class NavController extends Controller
     }
    
     public function update(Request $request) {
-        $author = Author::all();
+        $authors = Author::all();
         $genres = Genre::all();
         $book = Book::find($request->input('id'));
-        return view('book.updateOne', ['author' => $author, 'genres' => $genres, 'book' => $book]);
+        return view('book.updateOne', ['authors' => $authors, 'genres' => $genres, 'book' => $book]);
     }
 }

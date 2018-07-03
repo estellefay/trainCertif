@@ -23,7 +23,10 @@ class BookController extends Controller
     }
 
     public function deleteOne(Request $request) {
-        Book::destroy($request->input('id'));
+       // Book::destroy($request->input('id'));
+       $bookToDelete = Book::find($request->input('id'));
+       $bookToDelete->genres()->detach();
+       $bookToDelete->delete();
         return redirect('/showBook');
 
     }
@@ -33,11 +36,12 @@ class BookController extends Controller
         $book->title = $request->input('title');
         $book->price = $request->input('price');
         $book->author_id = $request->input('author'); // insert many to one
-        $book->save();
-        foreach ($request->input('genres') as $key => $value) {
+        $book->genres()->detach();
+        foreach ($request->input('genres') as  $value) {
             // Insert with many to many
             $book->genres()->attach($value);
         }
+        $book->save();
         return redirect('/showBook');
     }
     // metode update action Employe::find($request->input('id')) et save
